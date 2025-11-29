@@ -9,5 +9,5 @@ pillow
 torch
 aestream
 norse==1.1.0
-playsound==1.3.0
+playsound
 customtkinter==5.2.2

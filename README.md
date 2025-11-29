@@ -122,9 +122,11 @@ To use it run:
 python ./programs/dvs-live-stream-simulator-macos.py
 ```
 <br>
+
 You must be sure to run it in a not dark environment outside with enough light for your webcam, otherwise cv2 on macOS will output an array with mostly zeros and it will stop events from generating as there is not enough light change spotted in the picture. 
 
 This is a weird bug actually that comes from the IEBCS library, which does not provide the fallback for cv2 img as NoneType. It might also be caused by how Apple webcams work in their hardware.
+
 <br>
 
 ## GUI Instructions
@@ -132,6 +134,8 @@ This is a weird bug actually that comes from the IEBCS library, which does not p
 <p align="center">
 <img src="https://raw.githubusercontent.com/Neuromorphicism/neuromorphic-bird-classifier-desktop-app-dvs-stream-cli-and-gui/main/neurobcda-gui-preview.png">
 </p>
+
+<br>
 
 Click on the RGB checkbox to display both the events live preview and RGB live preview. Uncheck it to display only the events live preview.
 

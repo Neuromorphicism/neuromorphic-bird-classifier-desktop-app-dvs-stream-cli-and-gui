@@ -1,6 +1,8 @@
 
 # None of the fixes below worked for me (November 2025)
 
+<br>
+
 ## Windows without conda
 
 Open terminal in the NeuroBCDA folder 
@@ -17,6 +19,7 @@ Then again run: `pip install -r requirements-windows.txt` with all the uncomment
 
 Now aestream will most probably fail…
 
+<br>
 
 ## Install miniconda on Windows
 
@@ -38,6 +41,7 @@ conda activate neurobcda
 pip install -r requirements-windows.txt
 ```
 
+<br>
 
 ## Anaconda PowerShell Prompt
 
@@ -52,6 +56,7 @@ pip install -r requirements-windows.txt
 
 If you have an error with outdated CMAKE then in cmd run: `choco upgrade cmake`
 
+<br>
 
 ## CMake Problems
 
@@ -66,8 +71,9 @@ pip cache purge
 pip install --no-build-isolation --no-dependencies aestream
 ```
 
-**Actually lz4 package should not be a dependency here because we are not using aedat4 files from a real DVS.*
+*Actually lz4 package should not be a dependency here because we are not using aedat4 files from a real DVS.*
 
+<br>
 
 ## The main problem of AEStream is lz4
 
@@ -82,6 +88,7 @@ cmake --build .
 python setup.py install
 ```
 
+<br>
 
 ## Install CMake from source
 
@@ -96,6 +103,8 @@ ninja install
 
 Here you would have to make sure that CMake finds the nanobind package installed with pip
 
+<br>
+
 ## GCC version below 10
 
 AEStream relies on modern compiler features and requires at least GCC 10 and CMake 3.20. To update GCC to version 10 on Windows the recommended approach is to install the MinGW-w64 toolchain which provides up-to-date GCC builds for Windows. MSBuild might also fail due to exceeding the maximum path length limit (260 characters) on Windows, which means that your folders can not be deeply nested (actually a hilarious fail, who even set that limit).
@@ -103,6 +112,8 @@ AEStream relies on modern compiler features and requires at least GCC 10 and CMa
 In general the whole Aestream library was not yet tested on Windows but its dependencies also require POSIX-like headers "unistd.h" so it might never run on pure Windows. MinGW-w64 and clang on Windows both support __attribute__ and unistd.h much better.
 
 For me the problem was with nanobind so maybe there is a missing "find_package(nanobind CONFIG REQUIRED)" in one of the CMakeLists.txt files in the aestream repository.
+
+<br>
 
 ## Other possible fixes
 
