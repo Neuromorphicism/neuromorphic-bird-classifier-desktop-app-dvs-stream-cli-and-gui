@@ -135,17 +135,20 @@ Click on "Save Log" button to save the log of spotted chosen bird. You can find 
 There will also be a photo and an events video taken once of a chosen bird. You can find it in the `programs/spotted-birds` directory.
 
 You can click on the "Stop" button at any time. It will turn off the webcam and the log will still be there. If you will click on the "Start" button it will refresh all the GUI fields and erase the log.
+
 <br>
 
 ## Development Tutorial
 
 It is available here: 
 
+<br>
   
 ## Contributing
 
 To improve this software you can open an issue or create a pull request from your forked repository of NeuroBCDA to this main repository.
 
+<br>
 
 ## Further Improvements
 
@@ -161,6 +164,7 @@ To improve this software you can open an issue or create a pull request from you
     
 6.  Try to move this app to Raspbian OS and use it with the Raspberry Pi camera and this way make a mobile app/cam with built-in display that does not run on a PC/Laptop. Try to run it on a smartphone.
 
+<br>
 
 ## Software Sources
 
@@ -174,6 +178,7 @@ AESTREAM (MIT license): [https://github.com/aestream/aestream](https://github.co
 
 CUSTOMTKINTER (MIT license): [https://github.com/tomschimansky/customtkinter](https://github.com/tomschimansky/customtkinter)
 
+<br>
 
 ## NeuroBCDA License
 
