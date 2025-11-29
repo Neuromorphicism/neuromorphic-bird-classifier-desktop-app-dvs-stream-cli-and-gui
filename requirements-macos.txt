@@ -23,5 +23,5 @@ torch
 #aestream==0.5.1
 
 norse==1.1.0
-playsound==1.3.0
+playsound3
 customtkinter==5.2.2

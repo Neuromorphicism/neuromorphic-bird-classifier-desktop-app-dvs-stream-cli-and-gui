@@ -32,7 +32,7 @@ import tkinter as tk
 import threading
 import time as time_lib
 from PIL import Image, ImageTk
-from playsound import playsound
+from playsound3 import playsound
 
 import customtkinter as ctk 
 import copy
