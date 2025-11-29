@@ -19,8 +19,8 @@
 This Python application uses Norse as its SNN inference engine and Tonic as the data loader. The GUI is created in CustomTkinter.
 
 The Live Event Camera Simulator is a custom tool based on ICNS IEBCS that does not require CUDA to run unlike other available similar tools.
-<br>
 
+<br>
 
 ## Using NeuroBCDA
 
@@ -29,6 +29,7 @@ To use this software you must use **Python version 3.8+** and have **PyTorch ver
 It is best to use <a href="https://docs.anaconda.com/anaconda/install/"  title="Anaconda">Anaconda</a> or <a  href="https://docs.conda.io/en/latest/miniconda.html" title="Miniconda">Miniconda</a> but you can try installing the Python packages without it.
 
 Pick your OS below and follow the steps that will enable you to use NeuroBCDA programs.
+
 <br>
 
 ### Download the SNN Model first
@@ -36,6 +37,7 @@ Pick your OS below and follow the steps that will enable you to use NeuroBCDA pr
 Replace the file in `programs/ml-models/snn-birds-empty-model.pth.txt` with a proper model `snn-birds-model.pth` downloaded from here: https://huggingface.co/neuromorphicism/snn-birds-model-v1/tree/main
 
 This `ml-models` directory should only contain: `programs/ml-models/snn-birds-model.pth`
+
 <br>
 
 ### Linux
