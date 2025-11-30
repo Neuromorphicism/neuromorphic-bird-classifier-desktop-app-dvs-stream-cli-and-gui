@@ -153,7 +153,7 @@ You can click on the "Stop" button at any time. It will turn off the webcam and 
 
 ## Development Tutorial
 
-It is available here: 
+It is available here: https://www.linkedin.com/pulse/your-first-free-neuromorphic-desktop-app-neuromorphicism-8ixvf
 
 <br>
   
@@ -196,3 +196,8 @@ CUSTOMTKINTER (MIT license): [https://github.com/tomschimansky/customtkinter](ht
 ## NeuroBCDA License
 
 GNU General Public License (GPL) v3. See [LICENSE](LICENSE) for license details.
+
+<br>
+
+## No Warranty
+I provide no warranty on the created Neuromorphic Bird Classifier Desktop Application nor on the changed source code of libraries used in this source code. Use it in real life scenarios at your own risk. The purpose of this open-source code is only educational. In derived works it has to have proper attributions and also be open-source on the same GPL-3.0 license.
