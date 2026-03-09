@@ -191,6 +191,19 @@ AESTREAM (MIT license): [https://github.com/aestream/aestream](https://github.co
 
 CUSTOMTKINTER (MIT license): [https://github.com/tomschimansky/customtkinter](https://github.com/tomschimansky/customtkinter)
 
+OPENCV-PYTHON (MIT license): [https://github.com/opencv/opencv-python](https://github.com/opencv/opencv-python) 
+
+PLAYSOUND3 (MIT license): [https://github.com/szmikler/playsound3](https://github.com/szmikler/playsound3) 
+
+TQDM (MIT & MPL-2.0 license): [https://github.com/tqdm/tqdm](https://github.com/tqdm/tqdm) 
+
+PILLOW (MIT-CMU license): [https://github.com/python-pillow/Pillow?tab=License-1-ov-file](https://github.com/python-pillow/Pillow?tab=License-1-ov-file)
+
+PYTORCH (Custom license): [https://github.com/pytorch/pytorch?tab=License-1-ov-file](https://github.com/pytorch/pytorch?tab=License-1-ov-file)
+
+NUMPY (Custom license): [https://github.com/numpy/numpy?tab=License-1-ov-file](https://github.com/numpy/numpy?tab=License-1-ov-file) 
+
+
 <br>
 
 ## NeuroBCDA Logo
