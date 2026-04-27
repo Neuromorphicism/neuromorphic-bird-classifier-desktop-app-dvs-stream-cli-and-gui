@@ -16,6 +16,7 @@ from iebcs_src.dvs_sensor import DvsSensor
 from iebcs_src.event_display import EventDisplay
 from iebcs_src.arbiter import SynchronousArbiter, BottleNeckArbiter, RowArbiter
 
+
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
 filename = os.path.join(script_dir, "./outputs/output.mp4")
