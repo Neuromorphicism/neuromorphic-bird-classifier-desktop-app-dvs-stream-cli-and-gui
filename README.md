@@ -72,7 +72,8 @@ pip install -r requirements-linux.txt
 
 If you picked Conda skip this whole section.
 
-Make sure that you have the downloaded model in the ml-models folder
+Make sure that you have the downloaded model in the ml-models folder.
+
 Create venv environment first
 ```bash
 python3 -m venv .venv
@@ -142,7 +143,8 @@ pip install -r requirements-windows.txt
 
 If you picked Conda skip this whole section.
 
-Make sure that you have the downloaded model in the ml-models folder
+Make sure that you have the downloaded model in the ml-models folder.
+
 Create venv environment first
 ```bash
 python3 -m venv .venv
