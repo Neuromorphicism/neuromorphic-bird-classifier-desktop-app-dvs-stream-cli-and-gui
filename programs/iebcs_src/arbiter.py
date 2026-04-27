@@ -1,5 +1,5 @@
 import numpy as np
-from event_buffer import EventBuffer
+from iebcs_src.event_buffer import EventBuffer
 
 
 class BottleNeckArbiter():

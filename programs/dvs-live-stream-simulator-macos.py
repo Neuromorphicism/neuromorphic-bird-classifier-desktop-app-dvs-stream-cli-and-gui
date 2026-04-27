@@ -9,15 +9,16 @@
 import cv2
 import os
 import sys
-
-sys.path.append("../iebcs-src")
-from event_buffer import EventBuffer
-from dvs_sensor import DvsSensor
-from event_display import EventDisplay
-from arbiter import SynchronousArbiter, BottleNeckArbiter, RowArbiter
 from tqdm import tqdm
 
-filename = "./outputs/output.mp4"
+from iebcs_src.event_buffer import EventBuffer
+from iebcs_src.dvs_sensor import DvsSensor
+from iebcs_src.event_display import EventDisplay
+from iebcs_src.arbiter import SynchronousArbiter, BottleNeckArbiter, RowArbiter
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+filename = os.path.join(script_dir, "./outputs/output.mp4")
 th_pos = 0.4        # ON threshold = 50% (ln(1.5) = 0.4)
 th_neg = 0.4        # OFF threshold = 50%
 th_noise = 0.01     # standard deviation of threshold noise
@@ -123,5 +124,5 @@ while True:
     cap2.release()
     
     # Save the events to a .dat file
-    # ev_full.write('outputs/events.dat'.format(lat, jit, ref, tau, th_pos, th_noise))
+    # ev_full.write(os.path.join(script_dir, "outputs/events.dat").format(lat, jit, ref, tau, th_pos, th_noise))
  

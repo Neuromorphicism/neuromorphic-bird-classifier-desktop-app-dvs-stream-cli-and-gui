@@ -20,13 +20,12 @@ from norse.torch import LICell, LIState
 from typing import NamedTuple
 from aestream import FileInput
 #import matplotlib.pyplot as plt
-
-sys.path.append("../iebcs-src")
-from event_buffer import EventBuffer
-from dvs_sensor import DvsSensor
-from dat_files import load_dat_event
-from arbiter import SynchronousArbiter, BottleNeckArbiter, RowArbiter
 from tqdm import tqdm
+
+from iebcs_src.event_buffer import EventBuffer
+from iebcs_src.dvs_sensor import DvsSensor
+from iebcs_src.dat_files import load_dat_event
+from iebcs_src.arbiter import SynchronousArbiter, BottleNeckArbiter, RowArbiter
 
 import tkinter as tk
 import threading
@@ -39,6 +38,7 @@ import copy
 import datetime
 import shutil
 
+script_dir = os.path.dirname(os.path.abspath(__file__))
 
 #os.environ["OMP_NUM_THREADS"] = "2"
 
@@ -155,7 +155,8 @@ model = SNNModel(
 ).to(DEVICE)
 
 # Neuromorphicism comment: load the trained weights
-model.load_state_dict(torch.load("./ml-models/snn-birds-model.pth", weights_only=True))
+model_path = os.path.join(script_dir, "./ml-models/snn-birds-model.pth")
+model.load_state_dict(torch.load(model_path, weights_only=True))
 
 # Neuromorphicism comment: set model to evaluation mode
 model.eval()
@@ -169,7 +170,7 @@ events_photo_img = None
 
 # Neuromorphicism comment: MP4V -mp4 or XVID - avi format or VP90 - webm format
 # Obviously XVID - avi is much faster and has better quality
-rgb_live_recording_filename = "./outputs/output.avi"
+rgb_live_recording_filename = os.path.join(script_dir, "./outputs/output.avi")
 codec = "XVID"
 
 th_pos = 0.4        # ON threshold = 50% (ln(1.5) = 0.4)
@@ -456,7 +457,7 @@ class App:
     def start_thread(self):
         self.thread_event = threading.Event()
         self.thread = threading.Thread(target=self.background_task, args=(self.thread_event,))
-        self.thread.setDaemon(False)
+        self.thread.daemon = False
         self.thread.start()
         
     # Neuromorphicism comment: third column methods
@@ -593,13 +594,13 @@ class App:
         
         
         # Save the events to a .dat file
-        ev_full.write('outputs/events.dat'.format(lat, jit, ref, tau, th_pos, th_noise))
+        ev_full.write(os.path.join(script_dir, "outputs/events.dat").format(lat, jit, ref, tau, th_pos, th_noise))
         
         
         # Neuromorphicism comment: before inference first test if there are any events on gray image - optimization
         # Neuromorphicism comment: I think it would be best to simply check the length of events (not the buffer) and if they are too short then do nothing to optimize the runtime
         
-        events = FileInput('outputs/events.dat', (640, 360)).load()  
+        events = FileInput(os.path.join(script_dir, "outputs/events.dat"), (640, 360)).load()  
         
         # Neuromorphicism comment: from logged tests below 100 events means that the camera is empty of events
         if len(events) > 100:
@@ -634,7 +635,8 @@ class App:
             target_size = 460800
             
             padded_array = np.zeros(target_size, dtype=flat_array.dtype)
-            padded_array[:flat_array.size] = flat_array
+            # TODO: The code below makes it impossible to cast outputs when they exceed target_size and gives an error
+            #padded_array[:flat_array.size] = flat_array
             
             tensor_input = torch.from_numpy(padded_array)
             tensor_input = tensor_input.view(1, -1)
@@ -671,7 +673,7 @@ class App:
                 if not self.was_the_chosen_bird_video_saved:
                 
                     # Neuromorphicism comment: turn on the 5 seconds alarm because the bird was spotted for the first time but it blocks the whole thread on a single core! Always use block=False in playsound!
-                    playsound("./sounds/alarm.mp3", block=False)
+                    playsound(os.path.join(script_dir, "./sounds/alarm.mp3"), block=False)
                     
                     # dd/mm/YY
                     now = datetime.datetime.now()
@@ -683,20 +685,22 @@ class App:
                     #dest_video_name = "./spotted-birds/" + self.bird_optionmenu.get() + "_rgb_video_" + date_time + ".avi"
                     #shutil.copy2(rgb_live_recording_filename, dest_video_name)
                     
-                    dest_events_name = "./spotted-birds/" + self.bird_optionmenu.get() + "_events_" + date_time + ".dat"
-                    shutil.copy2("./outputs/events.dat", dest_events_name)
+                    dest_events_name =  "./spotted-birds/" + self.bird_optionmenu.get() + "_events_" + date_time + ".dat"
+                    dest_events_path = os.path.join(script_dir,  dest_events_name)
+                    shutil.copy2(os.path.join(script_dir, "./outputs/events.dat"), dest_events_path)
                     
                     # Neuromorphicism comment: whole code below is copied from the IEBCS repo to make the preview events video in a folder from a dat file
 
                     fourcc = cv2.VideoWriter_fourcc('M', 'J', 'P', 'G')
                     # Neuromorphicism comment: modified!
-                    ts, x, y, p = load_dat_event(dest_events_name)
+                    ts, x, y, p = load_dat_event(dest_events_path)
                     # Neuromorphicism comment: modified!
-                    dest_events_video_name = "./spotted-birds/" + self.bird_optionmenu.get() + "_events_video_" + date_time + ".avi"
+                    dest_events_video_name =  "./spotted-birds/" + self.bird_optionmenu.get() + "_events_video_" + date_time + ".avi"
+                    dest_events_video_path = os.path.join(script_dir, dest_events_video_name)
                     
                     
                     res = [640, 360]
-                    out = cv2.VideoWriter('{}.avi'.format(dest_events_video_name[:-4]), fourcc, 20.0, (res[0], res[1]))
+                    out = cv2.VideoWriter('{}.avi'.format(script_dir, dest_events_video_path[:-4]), fourcc, 20.0, (res[0], res[1]))
                     tw = 1000
                     img         = np.zeros((res[1], res[0]), dtype=float)
                     tsurface    = np.zeros((res[1], res[0]), dtype=np.int64)
@@ -734,7 +738,7 @@ class App:
                           success, image = vidcap.read()
                     
                     if success:
-                        cv2.imwrite("./spotted-birds/" + self.bird_optionmenu.get() + "_photo" + date_time + ".png", image)
+                        cv2.imwrite(os.path.join(script_dir, "./spotted-birds/" + self.bird_optionmenu.get() + "_photo" + date_time + ".png"), image)
                     
                 
 
@@ -771,10 +775,12 @@ root.grid_columnconfigure(2, weight=1)
 
 root.grid_rowconfigure((0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20), weight=1, minsize=50)
 
-ico = ImageTk.PhotoImage(file = os.path.join("icons", "neurobcda-icon.png"))
+
+ico = ImageTk.PhotoImage(file = os.path.join(script_dir, "icons/neurobcda-icon.png")))
 root.wm_iconphoto(False, ico)
 root.iconphoto(True, ico)
-root.iconbitmap("icons/neurobcda-favicon.ico")
+#iconbitmap_path = os.path.join(script_dir, "icons/neurobcda-favicon.ico")
+#root.iconbitmap(iconbitmap_path)
 
 app = App(root)
 root.mainloop()

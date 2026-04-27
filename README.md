@@ -42,7 +42,16 @@ This `ml-models` directory should only contain: `programs/ml-models/snn-birds-mo
 
 ### Linux
 
-Download this repository and open the terminal window in its folder.
+Download this repository and open the terminal window in its folder. Decide if you want to use Conda or Python venv.
+
+Make sure that you have tkinter installed as it is not on pip
+```bash
+sudo apt-get install python3-tk
+```
+&nbsp;
+#### Conda
+
+If you picked Python venv skip this whole section.
 
 Create a conda environment first
 ```bash
@@ -58,17 +67,44 @@ Install NeuroBCDA packages from pip
 ```bash
 pip install -r requirements-linux.txt
 ```
+&nbsp;
+#### Python venv
 
+If you picked Conda skip this whole section.
+
+Make sure that you have the downloaded model in the ml-models folder
+Create venv environment first
+```bash
+python3 -m venv .venv
+```
+
+Activate the created venv environment
+```bash
+source .venv/bin/activate
+which python
+```
+
+Prepare pip for venv
+```bash
+python3 -m pip install --upgrade pip
+python3 -m pip --version
+```
+
+Install NeuroBCDA packages from pip
+```bash
+pip install -r requirements-linux.txt
+```
+&nbsp;
 #### Run the GUI
 ```bash
 python ./programs/neuromorphic-bird-classifier-gui-linux.py
 ```
-
+&nbsp;
 #### Run the terminal CLI without GUI
 ```bash
 python ./programs/neuromorphic-bird-classifier-cli-linux.py
 ```
-
+&nbsp;
 #### Run the Event Camera Simulator
 ```bash
 python ./programs/dvs-live-stream-simulator-linux.py
@@ -79,6 +115,12 @@ python ./programs/dvs-live-stream-simulator-linux.py
 ### Windows
 
 Currently (November 2025) AEStream does not work in Windows. Read about the issues connected to installation of this library in the `windows.txt` file. You can still use the Event Camera Simulator and GUI without the inference engine on Windows.
+
+Make sure that you have tkinter installed as it is not on pip. Decide if you want to use Conda or Python venv.
+
+#### Conda
+
+If you picked Python venv skip this whole section.
 
 Create a conda environment first
 ```bash
@@ -94,17 +136,45 @@ Install NeuroBCDA packages from pip
 ```bash
 pip install -r requirements-windows.txt
 ```
-  
+
+&nbsp;
+#### Python venv
+
+If you picked Conda skip this whole section.
+
+Make sure that you have the downloaded model in the ml-models folder
+Create venv environment first
+```bash
+python3 -m venv .venv
+```
+
+Activate the created venv environment
+```bash
+source .venv/bin/activate
+which python
+```
+
+Prepare pip for venv
+```bash
+python3 -m pip install --upgrade pip
+python3 -m pip --version
+```
+
+Install NeuroBCDA packages from pip
+```bash
+pip install -r requirements-windows.txt
+```
+&nbsp;
 #### Run the GUI
 ```
 python .\programs\neuromorphic-bird-classifier-gui-windows.py
 ```
-
+&nbsp;
 #### Run the terminal CLI without GUI
 ```
 python .\programs\neuromorphic-bird-classifier-cli-windows.py
 ```
-
+&nbsp;
 #### Run the Event Camera Simulator
 ```
 python .\programs\dvs-live-stream-simulator-windows.py
@@ -151,9 +221,22 @@ You can click on the "Stop" button at any time. It will turn off the webcam and 
 
 <br>
 
+## Tested Systems
+
+NeuroBCDA was successfully tested on the following systems:
+
+1. AMD Kria KV260 with Ubuntu Desktop 22.04 and Python venv
+2. ThinkPad X1 Carbon (Intel i5 CPU and 16 GB RAM) with Windows 11 and Conda
+3. ThinkPad X1 Extreme (Intel i9 CPU and 64 GB RAM) with Ubuntu Desktop 24.04 and Conda
+4. MacBook Pro with 2023 Apple Silicon Chip and Conda
+
+<br>
+
 ## Development Tutorial
 
 It is available here: https://www.linkedin.com/pulse/your-first-free-neuromorphic-desktop-app-neuromorphicism-8ixvf
+
+It shows how NeuroBCDA was created from the beginning to the Nov 30, 2025 [commit 7e2036c](https://github.com/Neuromorphicism/neuromorphic-bird-classifier-desktop-app-dvs-stream-cli-and-gui/tree/7e2036cb9a9ee7f6fa50fddf359073bf479e7ce9).
 
 <br>
   
@@ -162,6 +245,8 @@ It is available here: https://www.linkedin.com/pulse/your-first-free-neuromorphi
 To improve this software you can open an issue or create a pull request from your forked repository of NeuroBCDA to this main repository.
 
 <br>
+
+
 
 ## Further Improvements
 

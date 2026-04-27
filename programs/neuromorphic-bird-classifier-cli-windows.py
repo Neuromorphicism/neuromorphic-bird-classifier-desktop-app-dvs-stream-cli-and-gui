@@ -16,13 +16,14 @@ from norse.torch import LICell, LIState
 from typing import NamedTuple
 #from aestream import FileInput
 import matplotlib.pyplot as plt
-
-sys.path.append("../iebcs-src")
-from event_buffer import EventBuffer
-from dvs_sensor import DvsSensor
-from event_display import EventDisplay
-from arbiter import SynchronousArbiter, BottleNeckArbiter, RowArbiter
 from tqdm import tqdm
+
+from iebcs_src.event_buffer import EventBuffer
+from iebcs_src.dvs_sensor import DvsSensor
+from iebcs_src.event_display import EventDisplay
+from iebcs_src.arbiter import SynchronousArbiter, BottleNeckArbiter, RowArbiter
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
 
 def decode(x):
     x, _ = torch.max(x, 0)
@@ -136,12 +137,13 @@ model = SNNModel(
 ).to(DEVICE)
 
 # Load the trained weights
-model.load_state_dict(torch.load("./ml-models/snn-birds-model.pth", weights_only=True))
+model_path = os.path.join(script_dir, "./ml-models/snn-birds-model.pth")
+model.load_state_dict(torch.load(model_path, weights_only=True))
 
 # Set to evaluation mode
 model.eval()
 
-filename = "./outputs/output.mp4"
+filename = os.path.join(script_dir, "./outputs/output.mp4")
 th_pos = 0.4        # ON threshold = 50% (ln(1.5) = 0.4)
 th_neg = 0.4        # OFF threshold = 50%
 th_noise = 0.01     # standard deviation of threshold noise
@@ -245,7 +247,7 @@ while True:
 
     cap2.release()
     # Save the events to a .dat file
-    ev_full.write('./outputs/events.dat'.format(lat, jit, ref, tau, th_pos, th_noise))
+    ev_full.write(os.path.join(script_dir, "./outputs/events.dat").format(lat, jit, ref, tau, th_pos, th_noise))
     
   
     
@@ -286,7 +288,8 @@ while True:
     target_size = 460800
     
     padded_array = np.zeros(target_size, dtype=flat_array.dtype)
-    padded_array[:flat_array.size] = flat_array
+    # TODO: The code below makes it impossible to cast outputs when they exceed target_size and gives an error
+    #padded_array[:flat_array.size] = flat_array
     
     tensor_input = torch.from_numpy(padded_array)
     tensor_input = tensor_input.view(1, -1)

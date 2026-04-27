@@ -1,6 +1,6 @@
 import numpy
 import numpy as np
-from dat_files import write_event_dat
+from iebcs_src.dat_files import write_event_dat
 
 
 class EventBuffer():
