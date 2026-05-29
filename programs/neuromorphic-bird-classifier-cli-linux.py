@@ -287,8 +287,12 @@ while True:
     target_size = 460800
     
     padded_array = np.zeros(target_size, dtype=flat_array.dtype)
-    # TODO: The code below makes it impossible to cast outputs when they exceed target_size and gives an error
-    #padded_array[:flat_array.size] = flat_array
+
+    # Truncate or pad depending on size
+    if flat_array.size >= target_size:
+        padded_array[:] = flat_array[:target_size]
+    else:
+        padded_array[:flat_array.size] = flat_array
     
     tensor_input = torch.from_numpy(padded_array)
     tensor_input = tensor_input.view(1, -1)
