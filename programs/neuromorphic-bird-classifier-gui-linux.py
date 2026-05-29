@@ -633,6 +633,7 @@ class App:
             regular_array = np.array(data_as_list, dtype=np.int64)
             
             flat_array = regular_array.flatten()
+            # 2 * 640 * 360
             target_size = 460800
             
             padded_array = np.zeros(target_size, dtype=flat_array.dtype)
@@ -643,10 +644,7 @@ class App:
             else:
                 padded_array[:flat_array.size] = flat_array
             
-            tensor_input = torch.from_numpy(padded_array)
-            tensor_input = tensor_input.view(1, -1)
-            tensor_input = tensor_input.view(1, 1, 2, 640, 360)
-            tensor_input = tensor_input.float()
+            tensor_input = torch.from_numpy(padded_array).view(1, 1, target_size).float()
             # DONE
 
             readout_voltages = model_snn(tensor_input)
